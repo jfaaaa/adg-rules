@@ -1,1 +1,63 @@
- 
+
+! === AdGuard / uBlock 通用弹窗拦截预留 ===
+! 使用方法：删掉前面的感叹号，把 domain.com 换成具体的网址
+
+||crakrevenue.xyz^$popup
+||acceptancedishearten.com^$popup
+||bngprm.com^$popup
+||satisfiednews.com^$popup
+||alexatracker.com^$popup
+||top-webtoons.org^$popup
+||top5-casualdating-us.com^$popup
+||s.pemsrv.com^$popup
+! ||domain.com^$popup
+! ||domain.com^$popup
+
+! === 全局静默拦截所有弹出窗口（慎用，可能影响正常登录） ===
+! *^$popup
+
+! === 方案 A：针对链接特征隐藏（最推荐）
+! 只要链接里包含那个券商的域名，就直接让整个元素消失。
+
+##a[href*="ai-dream.space"]
+##a[href*="interactivebrokers.ca"]
+##a[href*="vv171.com"]
+##a[href*="vv23.life"]
+! ##a[href*="interactivebrokers.ca"]
+! ##a[href*="interactivebrokers.ca"]
+! ##a[href*="interactivebrokers.ca"]
+
+! === 方案 B：针对图片关键词隐藏
+! 如果图片的文件名或路径里带有品牌词，可以用这条。
+
+! ##img[src*="InteractiveBrokers"]
+! ##img[src*="InteractiveBrokers"]
+! ##img[src*="InteractiveBrokers"]
+! ##img[src*="InteractiveBrokers"]
+
+
+! === 下面是B站设置 ===
+
+! === 1. 调整【导航栏】与【最顶栏】之间的“上方”间距 ===
+bilibili.com##.bili-header__channel:style(margin-top: 60px !important;)
+
+! === 2. 调整【导航栏】与【下方视频区】之间的“下方”间距 ===
+bilibili.com##.bili-header__channel:style(margin-bottom: 45px !important;)
+
+
+! === 精准屏蔽顶部大背景广告，保留频道导航栏 ===
+bilibili.com##.bili-header__banner
+
+
+! === 精准定点清除“谋”字图标，保留正常功能 ===
+! === 1. 精准视觉屏蔽：直接蒸发带 btn-ad 类名的广告格子 ===
+bilibili.com##div.btn-ad
+bilibili.com##.ad-img
+
+! === 2. 强力图片源阻断：只要图片来自B站活动平台目录直接屏蔽 ===
+bilibili.com##picture:has(source[srcset*="activity_plat"])
+bilibili.com##img[src*="activity_plat"]
+
+! === 3. 物理移除：将带广告类名的 DOM 节点从网页中彻底剪掉（根除隐藏热区） ===
+bilibili.com#%#//scriptlet("remove-element", "div.btn-ad")
+bilibili.com#%#//scriptlet("remove-element", "[class*='ad-img']")
