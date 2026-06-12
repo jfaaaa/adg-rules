@@ -49,3 +49,15 @@ bilibili.com##.bili-header__channel:style(margin-bottom: 45px !important;)
 bilibili.com##.bili-header__banner
 
 
+! === 精准定点清除“谋”字图标，保留正常功能 ===
+! === 1. 精准视觉屏蔽：直接蒸发带 btn-ad 类名的广告格子 ===
+bilibili.com##div.btn-ad
+bilibili.com##.ad-img
+
+! === 2. 强力图片源阻断：只要图片来自B站活动平台目录直接屏蔽 ===
+bilibili.com##picture:has(source[srcset*="activity_plat"])
+bilibili.com##img[src*="activity_plat"]
+
+! === 3. 物理移除：将带广告类名的 DOM 节点从网页中彻底剪掉（根除隐藏热区） ===
+bilibili.com#%#//scriptlet("remove-element", "div.btn-ad")
+bilibili.com#%#//scriptlet("remove-element", "[class*='ad-img']")
